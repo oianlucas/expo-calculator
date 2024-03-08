@@ -1,4 +1,3 @@
-import { render, fireEvent, screen } from '@testing-library/react';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +31,18 @@ export default function Calc() {
         ...prevHistory,
         `${result} = ${finalResult}`,
       ]);
+      if (finalResult === Infinity) {
+        setResult('Erro');
+        return;
+      }
+      if (finalResult === undefined) {
+        setResult('');
+        return;
+      }
+      if (finalResult === null) {
+        setResult('');
+        return;
+      }
       setResult(finalResult.toString());
     } catch (error) {
       setResult('Erro');
@@ -229,7 +240,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   resultContainer: {
-    minWidth: '78%',
+    width: '78%',
     height: 60,
     padding: 10,
     marginBottom: 10,
