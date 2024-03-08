@@ -27,12 +27,9 @@ export default function Calc() {
   const calculate = () => {
     try {
       const finalResult = eval(result);
-      setHistory((prevHistory) => [
-        ...prevHistory,
-        `${result} = ${finalResult}`,
-      ]);
       if (finalResult === Infinity) {
         setResult('Erro');
+
         return;
       }
       if (finalResult === undefined) {
@@ -43,6 +40,10 @@ export default function Calc() {
         setResult('');
         return;
       }
+      setHistory((prevHistory) => [
+        ...prevHistory,
+        result == finalResult ? `${finalResult}` : `${result} = ${finalResult}`,
+      ]);
       setResult(finalResult.toString());
     } catch (error) {
       setResult('Erro');
